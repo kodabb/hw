@@ -9,11 +9,18 @@
 #import <Foundation/Foundation.h>
 
 
-@interface gameSetup : NSObject {
-
+@interface GameSetup : NSObject {
+	NSLocale *locale;
+	BOOL engineProtocolStarted;
 }
+
+
+@property (nonatomic, retain) NSLocale *locale;
+@property (nonatomic) BOOL engineProtocolStarted;
+
+-(void) setArgsForLocalPlay;
+-(void) engineProtocol;
+-(void) startThread: (NSString *)selector;
 
 @end
 
-void engineProtocolThread ();
-void setupArgsForLocalPlay();
