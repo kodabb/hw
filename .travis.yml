@@ -1,14 +1,14 @@
 language: c
 os:
   - linux
-  - osx
+    #- osx
 sudo: false
 branches:
   only:
     master
 
 compiler:
-  - gcc
+    #  - gcc
   - clang
 
 env:
