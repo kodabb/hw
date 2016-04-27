@@ -85,7 +85,9 @@ set(WIN32  )
 include(CMakeGenericSystem)
 
 # 2. now include SystemName.cmake file to set the system specific information
-set(CMAKE_SYSTEM_INFO_FILE ${CMAKE_MODULE_PATH}/Platform/${CMAKE_SYSTEM_NAME})
+set(CMAKE_SYSTEM_INFO_FILE "${CMAKE_MODULE_PATH}/Platform/${CMAKE_SYSTEM_NAME}")
+message("CMAKE_SYSTEM_INFO_FILE ${CMAKE_SYSTEM_INFO_FILE}")
+message("CMAKE_SYSTEM_NAME ${CMAKE_SYSTEM_NAME}")
 
 include(${CMAKE_SYSTEM_INFO_FILE} OPTIONAL RESULT_VARIABLE _INCLUDED_SYSTEM_INFO_FILE)
 
