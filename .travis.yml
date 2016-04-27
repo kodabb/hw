@@ -9,12 +9,14 @@ branches:
 #compiler:
     # - gcc
     # - clang
+
 env:
     #- BUILD_ARGS="-DCMAKE_BUILD_TYPE=Release"
     #- BUILD_ARGS="-DCMAKE_BUILD_TYPE=Debug"
     #- BUILD_ARGS="-DNOSERVER=1 -DBUILD_ENGINE_C=1"
     #- BUILD_ARGS="-DNOSERVER=1 -DNOVIDEOREC=1 -DNOPNG=1"
     #- BUILD_ARGS="-DNOSERVER=1 -DLUA_SYSTEM=0 -DPHYSFS_SYSTEM=0"
+
 matrix:
   include:
     - os: linux
@@ -31,6 +33,7 @@ matrix:
       #    sudo: required
       #    env: BUILD_ARGS="IOS" SDL_LIB_PATH="$TRAVIS_BUILD_DIR/../Library"
       #    osx_image: xcode7.2
+
 before_install: |
   if [ "$BUILD_ARGS" == "IOS" ]; then
     hg clone http://hg.libsdl.org/SDL $SDL_LIB_PATH/SDL/
@@ -45,6 +48,7 @@ before_install: |
   elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
     brew update --all
   fi
+
 install: |
   if [ "$BUILD_ARGS" == "IOS" ]; then
     # FPC 3.0.0 required for using FPC 3.0.1 which contains rtl for ios
@@ -75,6 +79,7 @@ install: |
     # avoid installing Sparkle
     export BUILD_ARGS="$BUILD_ARGS -DNOAUTOUPDATE=1"
   fi
+
 before_script: |
   if [ "$BUILD_ARGS" == "IOS" ]; then
     # More or less stable hw iOS version can be compiled with FPC 3.1.1, btw there are no (easy?) way to build it from sources,
@@ -85,12 +90,14 @@ before_script: |
     echo $BUILD_ARGS
     mkdir build && cd build && cmake $BUILD_ARGS ..
   fi
+
 script: |
   if [ "$BUILD_ARGS" == "IOS" ]; then
     xctool -project ./project_files/HedgewarsMobile/Hedgewars.xcodeproj -scheme Hedgewars -configuration Release build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
   else
     make VERBOSE=1
   fi
+
 after_success: |
   if [ "$BUILD_ARGS" == "IOS" ]; then
     :
@@ -99,6 +106,7 @@ after_success: |
   elif [ "$TRAVIS_OS_NAME" == "osx" ]; then
     make install
   fi
+
 notifications:
   email: false
   irc:
